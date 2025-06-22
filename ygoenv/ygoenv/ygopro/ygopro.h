@@ -33,6 +33,8 @@
 #include "ygopro-core/duel.h"
 #include "ygopro-core/ocgapi.h"
 
+#include "ygoenv/ygopro/ygo_core_adapter.h"
+
 // clang-format on
 
 namespace ygopro {
@@ -1753,6 +1755,11 @@ protected:
 
   std::mt19937 duel_gen_;
 
+  // Duel
+  std::unique_ptr<YgoCoreAdapter> adapter_;
+
+  // Message
+  uint8_t buf_[64 * 1024];
 
 public:
   // step return
@@ -2962,6 +2969,7 @@ private:
     }
     fmt::print("Player {} chose \"{}\" in {}\n", to_play_, s, legal_actions_);
   }
+
 
   std::tuple<std::vector<CardCode>, std::vector<CardCode>, std::string>
   load_deck(
