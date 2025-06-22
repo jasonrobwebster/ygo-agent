@@ -28,8 +28,9 @@ package("ygopro-core")
         end
 
         check_and_insert("field.h", 14, "#include <cstring>")
-        check_and_insert("interpreter.h", 11, "extern \"C\" {")
-        check_and_insert("interpreter.h", 15, "}")
+        -- Comment out problematic extern "C" insertions that conflict with C++ includes
+        -- check_and_insert("interpreter.h", 11, "extern \"C\" {")
+        -- check_and_insert("interpreter.h", 15, "}")
         local configs = {}
         if package:config("shared") then
             configs.kind = "shared"
