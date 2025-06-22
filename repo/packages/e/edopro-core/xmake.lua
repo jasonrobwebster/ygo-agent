@@ -30,11 +30,12 @@ package("edopro-core")
             end
         end
 
-        check_and_insert("interpreter.h", 12, "extern \"C\" {")
-        check_and_insert("interpreter.h", 14, "}")
+        -- Comment out problematic extern "C" insertions that conflict with C++ includes
+        -- check_and_insert("interpreter.h", 12, "extern \"C\" {")
+        -- check_and_insert("interpreter.h", 14, "}")
 
-        check_and_insert("interpreter.h", 16, "extern \"C\" {")
-        check_and_insert("interpreter.h", 19, "}")
+        -- check_and_insert("interpreter.h", 16, "extern \"C\" {")
+        -- check_and_insert("interpreter.h", 19, "}")
 
         local configs = {}
         if package:config("shared") then
