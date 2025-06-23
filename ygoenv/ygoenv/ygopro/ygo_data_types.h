@@ -7,6 +7,8 @@
 #include <stdexcept>
 #include <fmt/format.h>
 
+#include "ygoenv/ygopro/utils.h"
+
 namespace ygopro {
 
 using PlayerId = uint8_t;
@@ -234,15 +236,35 @@ public:
   const uint32_t &level() const { return level_; }
   const std::vector<std::string> &strings() const { return strings_; }
 
-  std::string get_spec(bool opponent) const;
+  std::string get_spec(bool opponent) const {
+    return ls_to_spec(location_, sequence_, position_, opponent);
+  }
 
   std::string get_spec(PlayerId player) const {
     return get_spec(player != controler_);
   }
 
-  std::string get_position() const;
+  std::string get_position() const {
+    return position_to_string(position_);
+  }
 
-  std::string get_effect_description(CardCode code, int effect_idx) const;
+  std::string get_effect_description(CardCode code, int effect_idx) const {
+    if (code == 0) {
+      return get_system_string(effect_idx);
+    }
+    if (effect_idx == 0) {
+      return "default";
+    }
+    effect_idx -= CARD_EFFECT_OFFSET;
+    if (effect_idx < 0) {
+      throw std::runtime_error("Invalid effect index: " + std::to_string(effect_idx));
+    }
+    auto s = strings_[effect_idx];
+    if (s.empty()) {
+      return "effect " + std::to_string(effect_idx);
+    }
+    return s;
+  }
 };
 
 class LegalAction {
