@@ -28,7 +28,7 @@ class Args:
     """the deck name for the first player, for example, `Hero`"""
     deck2: Optional[str] = None
     """the deck name for the second player, for example, `CyberDragon`"""
-    code_list_file: str = "code_list.txt"
+    code_list_file: str = "scripts/code_list.txt"
     """the code list file for card embeddings"""
     lang: str = "english"
     """the language to use"""
